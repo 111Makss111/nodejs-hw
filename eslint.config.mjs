@@ -1,4 +1,5 @@
 import js from '@eslint/js';
+import globals from 'globals';
 
 export default [
   {
@@ -9,10 +10,9 @@ export default [
     files: ['**/*.js'],
     languageOptions: {
       ecmaVersion: 'latest',
-      sourceType: 'commonjs',
+      sourceType: 'module',
       globals: {
-        console: 'readonly',
-        process: 'readonly',
+        ...globals.node,
       },
     },
     rules: {
