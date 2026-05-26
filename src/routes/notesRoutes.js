@@ -8,6 +8,7 @@ import {
   getNoteById,
   updateNote,
 } from '../controllers/notesController.js';
+import { authenticate } from '../middleware/authenticate.js';
 import {
   createNoteSchema,
   getAllNotesSchema,
@@ -24,6 +25,8 @@ const ctrlWrapper = (controller) => async (req, res, next) => {
     next(error);
   }
 };
+
+notesRoutes.use('/notes', authenticate);
 
 notesRoutes.get('/notes', celebrate(getAllNotesSchema), ctrlWrapper(getAllNotes));
 notesRoutes.get('/notes/:noteId', celebrate(noteIdSchema), ctrlWrapper(getNoteById));
