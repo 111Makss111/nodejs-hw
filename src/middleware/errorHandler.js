@@ -9,6 +9,14 @@ export const errorHandler = (err, req, res, _next) => {
     return;
   }
 
+  if (err.name === 'MulterError') {
+    res.status(400).json({
+      message: err.message,
+    });
+
+    return;
+  }
+
   res.status(500).json({
     message: 'Something went wrong',
   });
