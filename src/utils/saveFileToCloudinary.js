@@ -1,7 +1,7 @@
 import { Readable } from 'node:stream';
 import { v2 as cloudinary } from 'cloudinary';
 
-export const saveFileToCloudinary = (buffer) => {
+export const saveFileToCloudinary = (buffer, userId) => {
   cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
@@ -12,6 +12,10 @@ export const saveFileToCloudinary = (buffer) => {
     const uploadStream = cloudinary.uploader.upload_stream(
       {
         folder: 'avatars',
+        public_id: String(userId),
+        resource_type: 'image',
+        overwrite: true,
+        unique_filename: false,
       },
       (error, result) => {
         if (error) {
